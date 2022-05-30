@@ -1,0 +1,146 @@
+package trabalho3;
+
+
+import java.util.Scanner;
+
+public class Cadastro {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        int tam = 0;
+
+        Funcionario[] Funcionarios = new Funcionario[1000];
+        Funcionarios[tam++] = new Funcionario("Leonardo", "601.374.700-88", 12.50, 44, false);
+        Funcionarios[tam++] = new Funcionario("João", "653.765.255-63", 8.87, 35, false);
+        Funcionarios[tam++] = new Funcionario("Pedro", "523.765.235-66", 7.79, 32, true);
+        Funcionarios[tam++] = new Funcionario("Thiago", "765.675.865-25", 17.0, 28, false);
+        Funcionarios[tam++] = new Funcionario("Gustavo", "763.165.867-77", 14.2, 44, true);
+
+        for(;;){
+            System.out.println();
+            System.out.println("------------------------------------------------------------------------------------------------------------------------");
+            System.out.println();
+            System.out.println("Bem vindo ao sistema de cadastro de funcionários.");
+            System.out.println("Selecione a opção desejada: ");
+            System.out.println("1. Cadastrar novo funcionário.");
+            System.out.println("2. Listar funcionários cadastrados.");
+            System.out.println("3. Remover funcionário a partir do cpf");
+            System.out.println("4. Editar salário de um funcionário.");
+            System.out.println("5. Funcionário com maior salário.");
+            System.out.println("6. Percentual de funcionários que possuem filhos.");
+            System.out.println("7. sair do programa.");
+            System.out.print("Opção: ");
+            int opcao = sc.nextInt();
+
+            if (opcao == 1){
+
+                if (Funcionarios.length >= tam){
+                    Funcionario[] Fu2 = new Funcionario[tam];
+                    for (int i = 0; i < Fu2.length; i++){
+                        Funcionarios[i] = Fu2[i];
+                        if (Fu2[i] == null){
+                            break;
+                        }
+                    }
+                }
+
+                Scanner sc1 = new Scanner(System.in);
+                Scanner sc2 = new Scanner(System.in);
+                boolean filhos = true;
+
+                System.out.println("Nome do novo funcionário: ");
+                String nome = sc1.nextLine();
+                System.out.println("Cpf do novo funcionário: ");
+                String cpf = sc1.nextLine();
+                System.out.println("Valor da hora trabalhada: ");
+                double valorHoraTrabalhada = sc1.nextDouble();
+                System.out.println("Carga horária semanal: ");
+                double cargaHorariaSemanal = sc1.nextDouble();
+                System.out.println("Tem filhos?");
+                String temFilhos = sc2.nextLine();
+
+
+                if (temFilhos.equals("Sim") || temFilhos.equals("sim")){
+                    filhos = true;
+                } else {
+                    filhos = false;
+                }
+                for (int i = 0; i < Funcionarios.length; i++){
+                    if (Funcionarios[i] == null){
+                        Funcionarios[i] = new Funcionario(nome, cpf, valorHoraTrabalhada, cargaHorariaSemanal, filhos);
+                        System.out.println("Cadastro concluído");
+                        break;
+                    }
+                }
+                continue;
+            }
+            if (opcao == 2){
+                for (int i = 0; i < Funcionarios.length; i++){
+                    if (Funcionarios[i] != null){
+                        System.out.println(Funcionarios[i]);
+                    }
+                }
+                continue;
+            }
+            if (opcao == 3){
+                continue;
+            }
+            if (opcao == 4){
+                System.out.println("Digite o cpf do funcionario");
+                String cpf = sc.nextLine();
+                for(int i = 0; i < tam; i ++){
+                    if(cpf.equals(Funcionarios[i].getCpf())){
+                        System.out.println("Qual a nova carga horaria do(a) funionario(a)");
+                        Funcionarios[i].setCargaHorariaSemanal(sc.nextDouble());
+                        System.out.println("Qual o novo valor da hora do(a) funcionario(a)");
+                        Funcionarios[i].setValorHoraTrabalhada(sc.nextDouble());
+                    }
+                }
+                continue;
+            }
+            
+            if (opcao == 5){
+                Funcionario maior1 = Funcionarios[0];
+                for (int i = 1; i < tam; i++){
+                    if (Funcionarios[i].salarioFuncionario() > maior1.salarioFuncionario()){
+                        maior1 = Funcionarios[i];
+                    }
+                }
+                System.out.println("O funcionario com maior salario é " + maior1.getNome() + " e o salario dele é de " + maior1.salarioFuncionario() + " reais");
+                continue;
+            }
+            
+            
+
+            if (opcao == 6){
+                Double quant = 0.0;
+                for(int i = 0; i < tam; i++){
+                    if(Funcionarios[i].isFilhos() == true){
+                        quant++;
+                    }
+                }
+
+                System.out.println((quant/tam)*100 + "%");
+
+                // System.out.println("Deseja continuar no programa?");
+                // String resp = sc.nextLine();
+                // if(resp == "sim"){
+                //     continue;
+                // }else{
+                //     break;
+                // }
+                
+
+            }
+
+            
+            
+            if (opcao == 7){
+                System.out.println("Obrigado por utilizar nosso sistema.");
+                System.out.println("Saindo...");
+                break;
+            }
+        }
+    }
+}
