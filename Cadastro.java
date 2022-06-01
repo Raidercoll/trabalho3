@@ -99,6 +99,9 @@ public class Cadastro {
         Scanner sc3 = new Scanner(System.in);
             System.out.println("Digite o cpf do funcionario");
             String cpf = sc3.nextLine();
+            cpf = cpf.replace(" ", "");
+            cpf = cpf.replace(".", "");
+            cpf = cpf.replace("-", "");
             int p = tam;
             for(int i = 0; i < tam; i ++){
                 if(cpf.equals(Funcionarios[i].getCpf())){
